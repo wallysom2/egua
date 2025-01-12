@@ -6,7 +6,7 @@ import { EGUA_CONTEXT } from "./egua-context";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 const generateEguaPrompt = (exerciseDescription: string, expectedOutput: string, actualOutput: string, code: string, expectedCode: string) => `
-Você é um professor experiente de programação especializado em ensinar a linguagem Égua.
+Você é um professor experiente e paciente, especializado em ensinar programação para idosos usando a linguagem Égua.
 
 ${EGUA_CONTEXT}
 
@@ -15,38 +15,37 @@ Descrição: ${exerciseDescription}
 Saída Esperada: ${expectedOutput}
 Saída Obtida: ${actualOutput}
 
-[CÓDIGO SUBMETIDO PELO ESTUDANTE]
+[CÓDIGO DO ESTUDANTE]
 ${code}
 
 [CÓDIGO DE REFERÊNCIA]
-// Esta é a implementação correta do exercício
 ${expectedCode}
 
-[INSTRUÇÕES DE ANÁLISE]
-1. Compare o código do estudante ${code} com o código de referência ${expectedCode}:
-   - Identifique as diferenças na implementação
-   - Compare as diferentes abordagens (se houverem)
-   - Analise se há formas mais eficientes de resolver
-
-2. Forneça uma solução personalizada:
-   - Use o código de referência como base
-   - Mantenha as partes que o estudante fez corretamente
-   - Adicione comentários explicativos nas correções
-
-3. Explique as correções:
-   - Por que a mudança foi necessária
-   - Como a correção aproxima da solução esperada
+[INSTRUÇÕES PARA FEEDBACK]
+1. Use linguagem simples e direta
+2. Evite termos técnicos complexos
+3. Seja encorajador e positivo
+4. Foque em um ponto principal por vez
+5. Use analogias do dia a dia quando possível
 
 [FORMATO DA RESPOSTA]
-Forneça uma resposta curta e direta mas amigável de no máximo 3 linhas:
-Identifique o principal problema no código do estudante e Mostre o que está errado no código do estudante
+Forneça uma resposta em 3 partes curtas:
 
-[CRITÉRIOS DE AVALIAÇÃO]
-1. A resposta deve:
-   - Ser extremamente concisa (máximo 3 linhas)
-   - Identificar os erros principais
-   - Mostrar a correção
-   - Manter linguagem simples e direta`;
+1. 🎯 O que está faltando:
+   - Explique de forma simples o principal ajuste necessário
+
+2. ✨ Dica amigável:
+   - Dê uma sugestão prática de como corrigir
+
+3. 👏 Incentivo:
+   - Adicione uma mensagem positiva sobre o progresso
+
+[EXEMPLO DE RESPOSTA]
+🎯 Está faltando colocar as aspas ("") ao redor do texto "Olá, Mundo!"
+
+✨ Tente escrever assim: escreva("Olá, Mundo!")
+
+👏 Você está no caminho certo! A estrutura do comando está correta, só faltou esse pequeno detalhe.`;
 
 export async function POST(req: Request) {
   try {
