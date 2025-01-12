@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { db } from "~/server/db";
 import LessonCard from "~/components/lessons/LessonCard";
 import ProgressChart from "~/components/lessons/ProgressChart";
+import { UserMenu } from "~/components/UserMenu";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -33,7 +34,10 @@ export default async function DashboardPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Bem-vindo ao Égua Learning!</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Bem-vindo ao Égua Learning!</h1>
+        <UserMenu user={session.user} />
+      </div>
       
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Seu Progresso</h2>
