@@ -138,7 +138,7 @@ export default function CodeEditor({
         <textarea
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="w-full h-64 p-6 font-mono text-xl bg-slate-900 text-white rounded-lg border-2 border-slate-700 focus:border-primary focus:ring-2 focus:ring-primary/50"
+          className="w-full h-64 p-6 font-mono text-xl bg-[#1E293B] dark:bg-[#0F172A] text-slate-200 dark:text-slate-100 rounded-lg border-2 border-slate-400/20 dark:border-slate-700 focus:border-[#6366F1] dark:focus:border-[#818CF8] focus:ring-2 focus:ring-[#6366F1]/50 dark:focus:ring-[#818CF8]/50"
           placeholder="Digite seu código aqui..."
           style={{ lineHeight: '2' }}
         />
@@ -150,15 +150,15 @@ export default function CodeEditor({
           disabled={isRunning}
           className={`px-8 py-4 text-xl rounded-lg font-medium ${
             isRunning
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-primary hover:bg-primary-hover text-white shadow-lg hover:shadow-xl transition-all"
+              ? "bg-slate-400 dark:bg-slate-600 cursor-not-allowed"
+              : "bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-[#6366F1] dark:hover:bg-[#4F46E5] text-white shadow-lg hover:shadow-xl transition-all"
           }`}
         >
           {isRunning ? "Executando..." : "Executar Código"}
         </button>
 
         {isCompleted && (
-          <span className="text-xl text-secondary font-medium flex items-center bg-secondary/10 px-6 py-3 rounded-lg">
+          <span className="text-xl text-emerald-600 dark:text-emerald-400 font-medium flex items-center bg-emerald-50 dark:bg-emerald-900/20 px-6 py-3 rounded-lg border border-emerald-200 dark:border-emerald-800/30">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8 mr-3"
@@ -177,7 +177,7 @@ export default function CodeEditor({
       </div>
 
       {error && (
-        <div className="p-8 bg-red-50 text-red-700 rounded-lg border-2 border-red-200">
+        <div className="p-8 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg border-2 border-red-200 dark:border-red-800/30">
           <div className="flex items-start">
             <svg className="h-6 w-6 mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -188,14 +188,14 @@ export default function CodeEditor({
       )}
 
       {output && (
-        <div className="p-8 bg-slate-50 rounded-lg border-2 border-slate-200">
-          <h4 className="text-2xl font-medium mb-6">Saída do Programa:</h4>
-          <pre className="font-mono text-xl bg-white p-6 rounded-md border border-slate-200 leading-relaxed">{output}</pre>
+        <div className="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-2 border-slate-200 dark:border-slate-800">
+          <h4 className="text-2xl font-medium mb-6 text-slate-900 dark:text-slate-100">Saída do Programa:</h4>
+          <pre className="font-mono text-xl bg-white dark:bg-[#1E293B] text-slate-900 dark:text-slate-100 p-6 rounded-md border border-slate-200 dark:border-slate-700 leading-relaxed">{output}</pre>
         </div>
       )}
 
       {isLoadingFeedback && (
-        <div className="p-8 bg-blue-50 text-blue-700 rounded-lg border-2 border-blue-200 animate-pulse">
+        <div className="p-8 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg border-2 border-blue-200 dark:border-blue-800/30 animate-pulse">
           <div className="flex items-center">
             <svg className="animate-spin h-8 w-8 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -207,14 +207,14 @@ export default function CodeEditor({
       )}
 
       {feedback && (
-        <div className="p-8 bg-green-50 rounded-lg border-2 border-green-200">
-          <h4 className="text-2xl font-medium mb-6 flex items-center text-green-800">
+        <div className="p-8 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border-2 border-emerald-200 dark:border-emerald-800/30">
+          <h4 className="text-2xl font-medium mb-6 flex items-center text-emerald-800 dark:text-emerald-400">
             <svg className="h-8 w-8 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             Feedback do Professor
           </h4>
-          <div className="prose prose-xl max-w-none text-green-800 leading-relaxed">
+          <div className="prose prose-xl max-w-none text-emerald-800 dark:text-emerald-300 leading-relaxed">
             <ReactMarkdown>{feedback}</ReactMarkdown>
           </div>
         </div>
