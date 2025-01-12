@@ -9,6 +9,7 @@ interface CodeEditorProps {
   expectedOutput: string;
   initialCode: string;
   isCompleted: boolean;
+  description: string;
 }
 
 export default function CodeEditor({
@@ -18,15 +19,19 @@ export default function CodeEditor({
   expectedOutput,
   initialCode,
   isCompleted,
+  description,
 }: CodeEditorProps) {
   const [code, setCode] = useState(initialCode);
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const [error, setError] = useState("");
+  const [feedback, setFeedback] = useState<string>("");
+  const [isLoadingFeedback, setIsLoadingFeedback] = useState(false);
 
   const runCode = async () => {
     setIsRunning(true);
     setError("");
+    setFeedback("");
     
     try {
       // Simular a execução do código Égua
@@ -74,8 +79,30 @@ export default function CodeEditor({
           }
         }
       }
-
+      
       setOutput(simulatedOutput);
+
+      // Obter feedback do Gemini
+      setIsLoadingFeedback(true);
+      const feedbackResponse = await fetch("/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code,
+          exerciseDescription: description,
+          expectedOutput,
+          actualOutput: simulatedOutput,
+        }),
+      });
+
+      if (!feedbackResponse.ok) {
+        throw new Error("Erro ao obter feedback");
+      }
+
+      const { feedback: geminiFeedback } = await feedbackResponse.json();
+      setFeedback(geminiFeedback);
 
       // Verificar se o output corresponde ao esperado
       if (simulatedOutput === expectedOutput && !isCompleted) {
@@ -100,6 +127,7 @@ export default function CodeEditor({
       setError(e instanceof Error ? e.message : "Erro ao executar o código");
     } finally {
       setIsRunning(false);
+      setIsLoadingFeedback(false);
     }
   };
 
@@ -156,6 +184,19 @@ export default function CodeEditor({
         <div className="p-4 bg-gray-100 rounded-lg">
           <h4 className="font-medium mb-2">Saída:</h4>
           <pre className="font-mono text-sm">{output}</pre>
+        </div>
+      )}
+
+      {isLoadingFeedback && (
+        <div className="p-4 bg-blue-50 text-blue-700 rounded-lg animate-pulse">
+          Gerando feedback personalizado...
+        </div>
+      )}
+
+      {feedback && (
+        <div className="p-4 bg-green-50 text-green-700 rounded-lg">
+          <h4 className="font-medium mb-2">Feedback do Professor Virtual:</h4>
+          <p>{feedback}</p>
         </div>
       )}
     </div>

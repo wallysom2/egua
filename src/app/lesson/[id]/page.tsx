@@ -84,6 +84,7 @@ export default async function LessonPage({
                 isCompleted={lesson.progress.some(
                   (p) => p.exerciseId === exercise.id && p.completed
                 )}
+                description={exercise.description}
               />
             </div>
           ))}
