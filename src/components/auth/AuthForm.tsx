@@ -51,9 +51,9 @@ export function AuthForm() {
   };
 
   return (
-    <div className="w-full max-w-md space-y-6 p-6">
+    <div className="w-full max-w-md space-y-8 p-8 bg-white dark:bg-[#111827] rounded-2xl border dark:border-[#1E293B] shadow-lg">
       <div className="space-y-2 text-center">
-        <h1 className="text-4xl font-bold">
+        <h1 className="text-4xl font-poppins font-bold bg-gradient-to-r from-[#3B82F6] via-[#6366F1] to-[#8B5CF6] dark:from-[#60A5FA] dark:via-[#818CF8] dark:to-[#A78BFA] bg-clip-text text-transparent">
           {mode === "login" ? "Entrar" : "Criar conta"}
         </h1>
       </div>
@@ -61,51 +61,51 @@ export function AuthForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {mode === "register" && (
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-lg">Nome</Label>
+            <Label htmlFor="name" className="text-lg font-medium dark:text-[#F1F5F9]">Nome</Label>
             <Input
               id="name"
               type="text"
               placeholder="Seu nome"
               {...register("name")}
               disabled={isLoading}
-              className="h-12 text-lg"
+              className="h-12 text-lg dark:bg-[#1E293B] dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
             />
             {errors.name && (
-              <p className="text-base text-destructive">{errors.name.message}</p>
+              <p className="text-base text-red-500 dark:text-red-400">{errors.name.message}</p>
             )}
           </div>
         )}
 
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-lg">Email</Label>
+          <Label htmlFor="email" className="text-lg font-medium dark:text-[#F1F5F9]">Email</Label>
           <Input
             id="email"
             type="email"
             placeholder="seu@email.com"
             {...register("email")}
             disabled={isLoading}
-            className="h-12 text-lg"
+            className="h-12 text-lg dark:bg-[#1E293B] dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
           />
           {errors.email && (
-            <p className="text-base text-destructive">{errors.email.message}</p>
+            <p className="text-base text-red-500 dark:text-red-400">{errors.email.message}</p>
           )}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-lg">Senha</Label>
+          <Label htmlFor="password" className="text-lg font-medium dark:text-[#F1F5F9]">Senha</Label>
           <div className="relative">
             <Input
               id="password"
               type={showPassword ? "text" : "password"}
               {...register("password")}
               disabled={isLoading}
-              className="h-12 text-lg pr-10"
+              className="h-12 text-lg pr-10 dark:bg-[#1E293B] dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
             />
             <Button
               type="button"
               variant="ghost"
               size="icon"
-              className="absolute right-0 top-0 h-12 w-12"
+              className="absolute right-0 top-0 h-12 w-12 dark:text-[#94A3B8] dark:hover:text-[#F1F5F9]"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
@@ -116,26 +116,26 @@ export function AuthForm() {
             </Button>
           </div>
           {errors.password && (
-            <p className="text-base text-destructive">{errors.password.message}</p>
+            <p className="text-base text-red-500 dark:text-red-400">{errors.password.message}</p>
           )}
         </div>
 
         {mode === "register" && (
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword" className="text-lg">Confirmar Senha</Label>
+            <Label htmlFor="confirmPassword" className="text-lg font-medium dark:text-[#F1F5F9]">Confirmar Senha</Label>
             <div className="relative">
               <Input
                 id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
                 {...register("confirmPassword")}
                 disabled={isLoading}
-                className="h-12 text-lg pr-10"
+                className="h-12 text-lg pr-10 dark:bg-[#1E293B] dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
               />
               <Button
                 type="button"
                 variant="ghost"
                 size="icon"
-                className="absolute right-0 top-0 h-12 w-12"
+                className="absolute right-0 top-0 h-12 w-12 dark:text-[#94A3B8] dark:hover:text-[#F1F5F9]"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
                 {showConfirmPassword ? (
@@ -146,7 +146,7 @@ export function AuthForm() {
               </Button>
             </div>
             {errors.confirmPassword && (
-              <p className="text-base text-destructive">
+              <p className="text-base text-red-500 dark:text-red-400">
                 {errors.confirmPassword.message}
               </p>
             )}
@@ -154,12 +154,17 @@ export function AuthForm() {
         )}
 
         {error && (
-          <Alert variant="destructive">
+          <Alert variant="destructive" className="dark:bg-red-900/20 dark:text-red-400 dark:border-red-900/50">
             <AlertDescription className="text-base">{error}</AlertDescription>
           </Alert>
         )}
 
-        <Button type="submit" className="w-full h-12 text-lg" disabled={isLoading}>
+        <Button 
+          type="submit" 
+          className="w-full h-12 text-lg font-poppins font-semibold bg-[#4F46E5] hover:bg-[#4338CA]
+            dark:bg-[#6366F1] dark:hover:bg-[#4F46E5] dark:text-white transition-transform" 
+          disabled={isLoading}
+        >
           {isLoading && <Icons.spinner className="mr-2 h-5 w-5 animate-spin" />}
           {mode === "login" ? "Entrar" : "Criar conta"}
         </Button>
@@ -167,10 +172,10 @@ export function AuthForm() {
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="w-full border-t dark:border-[#1E293B]" />
         </div>
         <div className="relative flex justify-center text-sm uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
+          <span className="bg-white dark:bg-[#111827] px-2 text-muted-foreground dark:text-[#94A3B8]">
             ou continue com
           </span>
         </div>
@@ -179,7 +184,7 @@ export function AuthForm() {
       <Button
         variant="outline"
         type="button"
-        className="w-full h-12 text-lg"
+        className="w-full h-12 text-lg font-poppins dark:bg-[#1E293B] dark:border-[#1E293B] dark:text-[#F1F5F9] dark:hover:bg-[#1E293B]/90"
         onClick={() => loginWithGoogle()}
         disabled={isLoading}
       >
@@ -189,7 +194,7 @@ export function AuthForm() {
 
       <Button
         variant="link"
-        className="w-full text-lg"
+        className="w-full text-lg font-poppins dark:text-[#94A3B8] hover:text-primary dark:hover:text-[#F1F5F9]"
         onClick={toggleMode}
         disabled={isLoading}
       >

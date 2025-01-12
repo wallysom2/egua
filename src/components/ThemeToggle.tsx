@@ -9,15 +9,22 @@ export function ThemeToggle() {
 
   return (
     <Button
-      variant="ghost"
-      size="icon"
+      variant="outline"
       onClick={toggleTheme}
-      className="hover:bg-accent"
+      className="
+        h-12 w-12
+        bg-background/80 dark:bg-[#1E293B]/50
+        border-2 dark:border-[#1E293B]
+        hover:bg-accent hover:scale-[1.02]
+        dark:hover:bg-[#1E293B]
+        transition-all duration-200
+        rounded-xl
+      "
     >
       {theme === "light" ? (
-        <Sun className="h-5 w-5" />
+        <Moon className="h-6 w-6 text-indigo-400" />
       ) : (
-        <Moon className="h-5 w-5" />
+        <Sun className="h-6 w-6 text-amber-500" />
       )}
       <span className="sr-only">Alternar tema</span>
     </Button>
