@@ -31,7 +31,7 @@ export const AuthService = {
       const result = await nextAuthSignIn("credentials", {
         email: data.email,
         password: data.password,
-        redirect: false,
+        callbackUrl: "/dashboard",
       });
 
       if (result?.error) {
@@ -56,7 +56,7 @@ export const AuthService = {
       const result = await nextAuthSignIn("credentials", {
         email: data.email.toLowerCase(),
         password: data.password,
-        redirect: false,
+        callbackUrl: "/dashboard",
       });
 
       if (result?.error) {
@@ -78,7 +78,7 @@ export const AuthService = {
 
   async loginWithGoogle() {
     try {
-      await nextAuthSignIn("google", { callbackUrl: "/" });
+      await nextAuthSignIn("google", { callbackUrl: "/dashboard" });
     } catch (error) {
       throw new AuthError(
         error instanceof Error 

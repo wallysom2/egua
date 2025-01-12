@@ -15,7 +15,6 @@ export function useAuth() {
         setError(null);
         await AuthService.register(data);
         router.refresh();
-        router.push("/");
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
@@ -37,7 +36,6 @@ export function useAuth() {
         setError(null);
         await AuthService.login(data);
         router.refresh();
-        router.push("/");
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);

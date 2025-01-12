@@ -54,6 +54,13 @@ export const {
       }
       return session;
     },
+    redirect: ({ url, baseUrl }) => {
+      // Após o login, redireciona para o dashboard
+      if (url.startsWith(baseUrl)) {
+        return `${baseUrl}/dashboard`;
+      }
+      return url;
+    },
   },
   providers: [
     GoogleProvider({
