@@ -17,6 +17,8 @@ type AuthMode = "login" | "register";
 
 export function AuthForm() {
   const [mode, setMode] = useState<AuthMode>("login");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { isLoading, error } = useAuthStore();
   const { register: registerUser, login, loginWithGoogle } = useAuth();
 
@@ -49,73 +51,102 @@ export function AuthForm() {
   };
 
   return (
-    <div className="w-full max-w-md space-y-6 rounded-lg border p-6 shadow-lg">
+    <div className="w-full max-w-md space-y-6 p-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-4xl font-bold">
           {mode === "login" ? "Entrar" : "Criar conta"}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          {mode === "login"
-            ? "Entre com suas credenciais"
-            : "Preencha os dados para criar sua conta"}
-        </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {mode === "register" && (
           <div className="space-y-2">
-            <Label htmlFor="name">Nome</Label>
+            <Label htmlFor="name" className="text-lg">Nome</Label>
             <Input
               id="name"
               type="text"
               placeholder="Seu nome"
               {...register("name")}
               disabled={isLoading}
+              className="h-12 text-lg"
             />
             {errors.name && (
-              <p className="text-sm text-destructive">{errors.name.message}</p>
+              <p className="text-base text-destructive">{errors.name.message}</p>
             )}
           </div>
         )}
 
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email" className="text-lg">Email</Label>
           <Input
             id="email"
             type="email"
             placeholder="seu@email.com"
             {...register("email")}
             disabled={isLoading}
+            className="h-12 text-lg"
           />
           {errors.email && (
-            <p className="text-sm text-destructive">{errors.email.message}</p>
+            <p className="text-base text-destructive">{errors.email.message}</p>
           )}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password">Senha</Label>
-          <Input
-            id="password"
-            type="password"
-            {...register("password")}
-            disabled={isLoading}
-          />
+          <Label htmlFor="password" className="text-lg">Senha</Label>
+          <div className="relative">
+            <Input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              {...register("password")}
+              disabled={isLoading}
+              className="h-12 text-lg pr-10"
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="absolute right-0 top-0 h-12 w-12"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                <Icons.eyeOff className="h-5 w-5" />
+              ) : (
+                <Icons.eye className="h-5 w-5" />
+              )}
+            </Button>
+          </div>
           {errors.password && (
-            <p className="text-sm text-destructive">{errors.password.message}</p>
+            <p className="text-base text-destructive">{errors.password.message}</p>
           )}
         </div>
 
         {mode === "register" && (
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirmar Senha</Label>
-            <Input
-              id="confirmPassword"
-              type="password"
-              {...register("confirmPassword")}
-              disabled={isLoading}
-            />
+            <Label htmlFor="confirmPassword" className="text-lg">Confirmar Senha</Label>
+            <div className="relative">
+              <Input
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                {...register("confirmPassword")}
+                disabled={isLoading}
+                className="h-12 text-lg pr-10"
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="absolute right-0 top-0 h-12 w-12"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? (
+                  <Icons.eyeOff className="h-5 w-5" />
+                ) : (
+                  <Icons.eye className="h-5 w-5" />
+                )}
+              </Button>
+            </div>
             {errors.confirmPassword && (
-              <p className="text-sm text-destructive">
+              <p className="text-base text-destructive">
                 {errors.confirmPassword.message}
               </p>
             )}
@@ -124,12 +155,12 @@ export function AuthForm() {
 
         {error && (
           <Alert variant="destructive">
-            <AlertDescription>{error}</AlertDescription>
+            <AlertDescription className="text-base">{error}</AlertDescription>
           </Alert>
         )}
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+        <Button type="submit" className="w-full h-12 text-lg" disabled={isLoading}>
+          {isLoading && <Icons.spinner className="mr-2 h-5 w-5 animate-spin" />}
           {mode === "login" ? "Entrar" : "Criar conta"}
         </Button>
       </form>
@@ -138,7 +169,7 @@ export function AuthForm() {
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
+        <div className="relative flex justify-center text-sm uppercase">
           <span className="bg-background px-2 text-muted-foreground">
             ou continue com
           </span>
@@ -148,17 +179,17 @@ export function AuthForm() {
       <Button
         variant="outline"
         type="button"
-        className="w-full"
+        className="w-full h-12 text-lg"
         onClick={() => loginWithGoogle()}
         disabled={isLoading}
       >
-        <Icons.google className="mr-2 h-4 w-4" />
+        <Icons.google className="mr-2 h-5 w-5" />
         Google
       </Button>
 
       <Button
         variant="link"
-        className="w-full"
+        className="w-full text-lg"
         onClick={toggleMode}
         disabled={isLoading}
       >
