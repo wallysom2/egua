@@ -2,9 +2,10 @@ import { auth } from "~/server/auth";
 import { redirect } from "next/navigation";
 import { db } from "~/server/db";
 import LessonCard from "~/components/lessons/LessonCard";
-import ProgressChart from "~/components/lessons/ProgressChart";
 import { UserMenu } from "~/components/UserMenu";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { Card, CardHeader, CardTitle } from "~/components/ui/card";
+// Se estiver usando shadcn/ui, importe o Progress:
+import { Progress } from "~/components/ui/progress"; 
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -19,18 +20,19 @@ export default async function DashboardPage() {
       exercises: true,
       progress: {
         where: {
-          userId: session.user.id
-        }
-      }
-    }
+          userId: session.user.id,
+        },
+      },
+    },
   });
 
-  const completedLessons = lessons.filter(lesson => 
-    lesson.exercises.every(exercise => 
-      lesson.progress.some(p => p.exerciseId === exercise.id && p.completed)
+  const completedLessons = lessons.filter((lesson) =>
+    lesson.exercises.every((exercise) =>
+      lesson.progress.some((p) => p.exerciseId === exercise.id && p.completed)
     )
   ).length;
 
+  // Cálculo do progresso em percentual
   const progressPercentage = (completedLessons / lessons.length) * 100;
 
   return (
@@ -47,26 +49,39 @@ export default async function DashboardPage() {
         {/* Seção de Boas-vindas e Progresso */}
         <div className="mb-12">
           <Card className="bg-white shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-2xl md:text-3xl">
-                Olá, {session.user.name}! 👋
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <p className="text-xl text-slate-600">
-                  Continue sua jornada de aprendizado
-                </p>
-                <div className="p-6 bg-primary/5 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4">Seu Progresso</h3>
-                  <ProgressChart percentage={progressPercentage} />
-                  <p className="text-lg mt-4 text-center">
-                    Você completou <span className="font-bold text-primary">{completedLessons}</span> de{" "}
-                    <span className="font-bold text-primary">{lessons.length}</span> lições
-                  </p>
-                </div>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <div className="flex-1">
+                <CardTitle className="text-2xl md:text-3xl mb-2">
+                  Olá, {session.user.name}! 👋
+                </CardTitle>
               </div>
-            </CardContent>
+
+              {/* Indicação de progresso - 20% do espaço */}
+              <div className="w-[20%] min-w-[140px] flex flex-col items-center">
+                <div className="flex items-center gap-2 mb-2">
+                  <svg
+                    className="w-5 h-5 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                    />
+                  </svg>
+                  <span className="text-lg font-medium">
+                    {completedLessons}/{lessons.length}
+                  </span>
+                </div>
+                <Progress 
+                  value={progressPercentage} 
+                  className="h-2 bg-slate-200" 
+                />
+              </div>
+            </CardHeader>
           </Card>
         </div>
 
@@ -75,15 +90,11 @@ export default async function DashboardPage() {
           <h2 className="text-2xl md:text-3xl font-bold mb-8">Suas Lições</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {lessons.map((lesson) => (
-              <LessonCard
-                key={lesson.id}
-                lesson={lesson}
-                progress={lesson.progress}
-              />
+              <LessonCard key={lesson.id} lesson={lesson} />
             ))}
           </div>
         </section>
       </div>
     </main>
   );
-} 
+}
