@@ -1,67 +1,71 @@
-import Link from "next/link";
-
-import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/server/auth";
-import { api, HydrateClient } from "~/trpc/server";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { HydrateClient } from "~/trpc/server";
+import { UserMenu } from "~/components/UserMenu";
+import { LoginButton } from "~/components/LoginButton";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
   const session = await auth();
-
-  if (session?.user) {
-    void api.post.getLatest.prefetch();
-  }
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
+      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 dark:from-slate-900 dark:to-slate-800">
+        {/* Header com Login */}
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-end">
+            {session ? (
+              <UserMenu user={session.user} />
+            ) : (
+              <LoginButton />
+            )}
           </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
-            </p>
+        </div>
 
-            <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-center text-2xl text-white">
-                {session && <span>Logged in as {session.user?.name}</span>}
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center justify-center space-y-8">
+            {/* Logo e Título */}
+            <div className="text-center space-y-4">
+              <div className="w-32 h-32 bg-blue-100 dark:bg-slate-700 rounded-full mx-auto flex items-center justify-center">
+                <span className="text-6xl">🦄</span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold text-slate-800 dark:text-white">
+                Aprenda a Programar com <span className="text-blue-600">Égua</span>
+              </h1>
+              <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+                Uma jornada simplificada para aprender programação, especialmente pensada para você
               </p>
-              <Link
-                href={session ? "/api/auth/signout" : "/api/auth/signin"}
-                className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-              >
-                {session ? "Sign out" : "Sign in"}
-              </Link>
+            </div>
+
+            {/* Cards de Benefícios */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+              <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur">
+                <CardHeader>
+                  <CardTitle className="text-xl text-center">Fácil de Começar</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p>Interface amigável e tutoriais passo a passo em português</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur">
+                <CardHeader>
+                  <CardTitle className="text-xl text-center">Aprenda no seu Ritmo</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p>Exercícios adaptados e suporte personalizado</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur">
+                <CardHeader>
+                  <CardTitle className="text-xl text-center">Comunidade Ativa</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p>Conecte-se com outros aprendizes e mentores</p>
+                </CardContent>
+              </Card>
             </div>
           </div>
-
-          {session?.user && <LatestPost />}
         </div>
       </main>
     </HydrateClient>
