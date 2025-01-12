@@ -29,7 +29,8 @@ escreva("Olá, Mundo!")
           create: {
             title: "Seu primeiro programa",
             description: "Escreva um programa que mostre a mensagem 'Olá, Mundo!' na tela.",
-            expectedOutput: "Olá, Mundo!"
+            expectedOutput: "Olá, Mundo!",
+            expectedCode: `escreva("Olá, Mundo!");`
           }
         }
       }
@@ -53,7 +54,9 @@ Tudo que vem depois do # é ignorado pelo computador.`,
           create: {
             title: "Adicionando comentários",
             description: "Escreva um programa que mostre 'Bom dia!' e adicione um comentário explicando o que o programa faz.",
-            expectedOutput: "Bom dia!"
+            expectedOutput: "Bom dia!",
+            expectedCode: `// Este programa mostra uma mensagem de bom dia
+escreva("Bom dia!") // Exibe a saudação`
           }
         }
       }
@@ -78,7 +81,9 @@ escreva(nome)`,
           create: {
             title: "Seu nome em uma variável",
             description: "Crie uma variável com seu nome e use escreva para mostrá-lo na tela.",
-            expectedOutput: "Maria"
+            expectedOutput: "Maria",
+            expectedCode: `var nome = "Maria" // Guarda o nome em uma variável
+escreva(nome) // Mostra o nome na tela`
           }
         }
       }

@@ -5,21 +5,30 @@ import { notFound } from "next/navigation";
 import CodeEditor from "~/components/lessons/CodeEditor";
 import Link from "next/link";
 
-export default async function LessonPage({
-  params,
-}: {
+interface PageProps {
   params: { id: string };
-}) {
+}
+
+export default async function LessonPage({ params }: PageProps) {
   const session = await auth();
 
-  if (!session) {
+  if (!session?.user) {
     redirect("/");
   }
 
+  const id = params?.id;
+  if (!id) {
+    notFound();
+  }
+
   const lesson = await db.lesson.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
-      exercises: true,
+      exercises: {
+        orderBy: {
+          createdAt: 'asc'
+        }
+      },
       progress: {
         where: {
           userId: session.user.id,
@@ -78,8 +87,8 @@ export default async function LessonPage({
               <CodeEditor
                 exerciseId={exercise.id}
                 lessonId={lesson.id}
-                userId={session.user.id}
                 expectedOutput={exercise.expectedOutput}
+                expectedCode={exercise.expectedCode}
                 initialCode=""
                 isCompleted={lesson.progress.some(
                   (p) => p.exerciseId === exercise.id && p.completed

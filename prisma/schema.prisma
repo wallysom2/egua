@@ -85,15 +85,18 @@ model Lesson {
 }
 
 model Exercise {
-    id          String      @id @default(cuid())
-    title       String
-    description String
+    id             String         @id @default(cuid())
+    title          String
+    description    String
     expectedOutput String
-    lesson      Lesson      @relation(fields: [lessonId], references: [id])
-    lessonId    String
-    progress    UserProgress[]
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
+    expectedCode   String        // Código de referência para o exercício
+    lessonId       String
+    lesson         Lesson         @relation(fields: [lessonId], references: [id])
+    userProgress   UserProgress[]
+    createdAt      DateTime       @default(now())
+    updatedAt      DateTime       @updatedAt
+
+    @@index([lessonId])
 }
 
 model UserProgress {

@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 interface CodeEditorProps {
   exerciseId: string;
   lessonId: string;
-  userId: string;
   expectedOutput: string;
+  expectedCode: string;
   initialCode: string;
   isCompleted: boolean;
   description: string;
@@ -15,8 +16,8 @@ interface CodeEditorProps {
 export default function CodeEditor({
   exerciseId,
   lessonId,
-  userId,
   expectedOutput,
+  expectedCode,
   initialCode,
   isCompleted,
   description,
@@ -94,6 +95,7 @@ export default function CodeEditor({
           exerciseDescription: description,
           expectedOutput,
           actualOutput: simulatedOutput,
+          expectedCode,
         }),
       });
 
@@ -114,7 +116,6 @@ export default function CodeEditor({
           body: JSON.stringify({
             exerciseId,
             lessonId,
-            userId,
             code,
             completed: true,
           }),
@@ -195,8 +196,10 @@ export default function CodeEditor({
 
       {feedback && (
         <div className="p-4 bg-green-50 text-green-700 rounded-lg">
-          <h4 className="font-medium mb-2">Feedback do Professor Virtual:</h4>
-          <p>{feedback}</p>
+          <h4 className="font-medium mb-2">Feedback:</h4>
+          <ReactMarkdown className="prose prose-sm max-w-none">
+            {feedback}
+          </ReactMarkdown>
         </div>
       )}
     </div>
