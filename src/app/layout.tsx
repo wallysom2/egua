@@ -17,7 +17,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR" className={GeistSans.variable} suppressHydrationWarning>
-      <body>
+      <body suppressHydrationWarning>
         <TRPCReactProvider>
           <ThemeProvider>
             {children}
