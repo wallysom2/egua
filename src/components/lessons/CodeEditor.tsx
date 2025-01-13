@@ -211,14 +211,14 @@ export default function CodeEditor({
       )}
 
       {feedback && (
-        <div className="p-8 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border-2 border-emerald-200 dark:border-emerald-800/30">
-          <h4 className="text-2xl font-medium mb-6 flex items-center text-emerald-800 dark:text-emerald-400">
+        <div className="p-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-2 border-blue-200 dark:border-blue-800/30">
+          <h4 className="text-2xl font-medium mb-6 flex items-center text-blue-800 dark:text-blue-400">
             <svg className="h-8 w-8 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
             Feedback do Professor
           </h4>
-          <div className="prose prose-xl max-w-none text-emerald-800 dark:text-emerald-300 leading-relaxed">
+          <div className="prose prose-xl max-w-none text-blue-800 dark:text-blue-300 leading-relaxed">
             <ReactMarkdown>{feedback}</ReactMarkdown>
           </div>
         </div>

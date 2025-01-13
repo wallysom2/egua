@@ -42,18 +42,14 @@ Forneça uma resposta em 3 partes curtas:
 1. 🎯 O que está faltando:
    - Explique de forma simples o principal ajuste necessário
 
-2. ✨ Dica amigável:
+2. ✨ Dica:
    - Dê uma sugestão prática de como corrigir
-
-3. 👏 Incentivo:
-   - Adicione uma mensagem positiva sobre o progresso
 
 [EXEMPLO DE RESPOSTA]
 🎯 Está faltando colocar as aspas ("") ao redor do texto "Olá, Mundo!"
 
 ✨ Tente escrever assim: escreva("Olá, Mundo!")
-
-👏 Você está no caminho certo! A estrutura do comando está correta, só faltou esse pequeno detalhe.`;
+`;
 
 export async function POST(req: Request) {
   try {

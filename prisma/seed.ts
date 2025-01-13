@@ -9,26 +9,34 @@ async function main() {
     await prisma.exercise.deleteMany();
     await prisma.lesson.deleteMany();
 
-    // Lição 1: Hello World
+    // Lição 1: 👋 Hello World em Égua
     await prisma.lesson.create({
       data: {
-        title: "Hello World em Égua",
-        description: "Aprenda a escrever seu primeiro programa em Égua!",
-        content: `Bem-vindo à sua primeira lição de programação em Égua!
+        title: "👋 Hello World em Égua",
+        description: "Dê seus primeiros passos na programação com a linguagem Égua!",
+        content: `
 
-Nesta lição, você aprenderá a escrever seu primeiro programa: o famoso "Hello World".
+Que tal começar com o famoso "Hello World"? É uma tradição que todo programador começa assim!
 
-Em Égua, para exibir texto na tela, usamos o comando 'escreva'.
-Por exemplo:
+## O que vamos aprender? 📚
 
-escreva("Olá, Mundo!")
+Em Égua, usamos o comando \`escreva()\` para mostrar mensagens na tela. É como se estivéssemos conversando com o computador!
 
-É simples assim! O texto que queremos mostrar fica entre aspas.`,
+### Veja como é simples:
+
+\`\`\`egua
+escreva("Olá, Mundo!");
+\`\`\`
+
+
+### Por que isso é importante?
+
+Mostrar mensagens na tela é uma habilidade fundamental na programação. É como se você estivesse ensinando o computador a se comunicar com as pessoas!`,
         order: 1,
         exercises: {
           create: {
             title: "Seu primeiro programa",
-            description: "Escreva um programa que mostre a mensagem 'Olá, Mundo!' na tela.",
+            description: "Chegou sua vez! Escreva um programa que mostre a mensagem 'Olá, Mundo!' na tela.",
             expectedOutput: "Olá, Mundo!",
             expectedCode: `escreva("Olá, Mundo!");`
           }
@@ -36,54 +44,91 @@ escreva("Olá, Mundo!")
       }
     });
 
-    // Lição 2: Comentários
+    // Lição 2: Comentários no Código
     await prisma.lesson.create({
       data: {
-        title: "Comentários no Código",
-        description: "Aprenda a adicionar comentários para explicar seu código",
-        content: `Os comentários são muito úteis para explicar o que seu código faz.
-Em Égua, usamos # para fazer comentários.
+        title: "✏️ Comentários no Código",
+        description: "Aprenda a documentar seu código de forma clara e organizada",
+        content: `
 
-Por exemplo:
-# Este é um comentário
-escreva("Olá!") # Este comentário explica que vamos cumprimentar
+Os comentários são como **notas explicativas** que deixamos no nosso código. Eles são super importantes para:
+ ✍️ Explicar o que cada parte do código faz
+ 🤝 Ajudar outros programadores a entenderem seu código
+ 📌 Fazer anotações para você mesmo no futuro
 
-Tudo que vem depois do # é ignorado pelo computador.`,
+## Como fazer comentários em Égua?
+
+Em Égua, usamos o símbolo \`#\` para criar comentários. Tudo que vem depois deste símbolo é ignorado pelo computador!
+
+### Exemplos práticos:
+
+\`\`\`egua
+# Este é um comentário simples
+escreva("Olá!") # Aqui vamos mostrar uma saudação
+\`\`\`
+`
+,
+
         order: 2,
         exercises: {
           create: {
-            title: "Adicionando comentários",
-            description: "Escreva um programa que mostre 'Bom dia!' e adicione um comentário explicando o que o programa faz.",
+            title: "📝 Praticando Comentários",
+            description: "Crie um programa que mostre 'Bom dia!' e adicione comentários explicando cada parte do seu código.",
             expectedOutput: "Bom dia!",
-            expectedCode: `// Este programa mostra uma mensagem de bom dia
-escreva("Bom dia!") // Exibe a saudação`
+            expectedCode: `# Este programa mostra uma mensagem de bom dia
+escreva("Bom dia!") # Exibe a saudação na tela`
           }
         }
       }
     });
 
-    // Lição 3: Variáveis
+    // Lição 3:Usando Variáveis
     await prisma.lesson.create({
       data: {
-        title: "Usando Variáveis",
-        description: "Aprenda a guardar informações em variáveis",
-        content: `Variáveis são como caixas onde podemos guardar informações.
-Em Égua, criamos variáveis assim:
+        title: "📦 Usando Variáveis",
+        description: "Aprenda a guardar e manipular informações no seu programa",
+        content: `
 
+Imagine que variáveis são como **caixinhas mágicas** onde podemos guardar informações para usar depois!
+
+## Como criar uma variável? 🛠️
+
+Em Égua, usamos a palavra \`var\` para criar nossas caixinhas mágicas:
+
+\`\`\`egua
 var nome = "Maria"
-escreva(nome)
+escreva(nome)  # Mostra: Maria
+\`\`\`
 
-Você pode mudar o valor de uma variável quando quiser:
+A mágica acontece: podemos mudar o valor quando quisermos!
+\`\`\`egua
 nome = "João"
-escreva(nome)`,
+escreva(nome)  # Agora mostra: João
+\`\`\`
+
+Variáveis também guardam números
+
+\`\`\`egua
+var idade = 25
+escreva(idade)  # Mostra: 25
+\`\`\`
+
+
+### 💡 Dicas importantes:
+
+1. Escolha nomes que façam sentido para suas variáveis
+2. Você pode mudar o valor de uma variável quantas vezes quiser
+3. Cada variável é única, como uma caixinha com seu próprio nome
+`,
+
         order: 3,
         exercises: {
           create: {
-            title: "Seu nome em uma variável",
-            description: "Crie uma variável com seu nome e use escreva para mostrá-lo na tela.",
+            title: "Criando sua primeira variável",
+            description: "Crie uma variável com seu nome e use o comando escreva para mostrá-lo na tela.",
             expectedOutput: "Maria",
-            expectedCode: `var nome = "Maria" // Guarda o nome em uma variável
-escreva(nome) // Mostra o nome na tela`
+            expectedCode: `var nome = "Maria"
+escreva(nome);`
           }
         }
       }

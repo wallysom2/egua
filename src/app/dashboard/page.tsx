@@ -58,7 +58,7 @@ export default async function DashboardPage() {
             <CardHeader className="flex flex-row items-center justify-between pb-2 p-0">
               <div className="flex-1">
                 <CardTitle className="text-2xl md:text-3xl mb-2 font-poppins dark:text-[#F1F5F9]">
-                  Olá, {session.user.name}! 👋
+                  Olá, {session.user.name}!
                 </CardTitle>
               </div>
 

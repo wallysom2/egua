@@ -18,8 +18,7 @@
     "lint:fix": "next lint --fix",
     "preview": "next build && next start",
     "start": "next start",
-    "typecheck": "tsc --noEmit",
-    "prisma:seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.2",
@@ -75,6 +74,7 @@
     "prisma": "^6.2.1",
     "tailwindcss": "^3.4.3",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.5.3"
   },
   "ct3aMetadata": {
@@ -82,6 +82,6 @@
   },
   "packageManager": "npm@10.8.3",
   "prisma": {
-    "seed": "node --loader ts-node/esm prisma/seed.ts"
+    "seed": "node --import tsx prisma/seed.ts"
   }
 }
