@@ -72,5 +72,6 @@ const CardFooter = React.forwardRef<
   />
 ))
 CardFooter.displayName = "CardFooter"
+//comentario
 
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
