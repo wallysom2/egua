@@ -31,6 +31,10 @@ export default {
                 primary: {
                     DEFAULT: "hsl(var(--primary))",
                     foreground: "hsl(var(--primary-foreground))",
+                    light: "#6366F1",
+                    "light-hover": "#4F46E5",
+                    dark: "#818CF8",
+                    "dark-hover": "#A5B4FC"
                 },
                 secondary: {
                     DEFAULT: "hsl(var(--secondary))",
@@ -56,6 +60,16 @@ export default {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
+                dark: {
+                    background: "#0F172A",
+                    card: "#1E293B",
+                    secondary: "#334155",
+                    text: {
+                        primary: "#FFFFFF",
+                        secondary: "#CBD5E1",
+                        muted: "#94A3B8"
+                    }
+                }
             },
             borderRadius: {
                 lg: "var(--radius)",

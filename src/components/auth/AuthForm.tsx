@@ -52,7 +52,7 @@ export function AuthForm() {
   };
 
   return (
-    <div className="w-full max-w-md space-y-8 p-8 bg-white dark:bg-[#111827] rounded-2xl border dark:border-[#1E293B] shadow-lg">
+    <div className="w-full max-w-md space-y-8 p-8 bg-white dark:bg-dark-card rounded-2xl border dark:border-[#1E293B] shadow-lg">
       <div className="space-y-2 text-center">
         <h1 className="text-4xl font-poppins font-bold bg-gradient-to-r from-[#3B82F6] via-[#6366F1] to-[#8B5CF6] dark:from-[#60A5FA] dark:via-[#818CF8] dark:to-[#A78BFA] bg-clip-text text-transparent">
           {mode === "login" ? "Entrar" : "Criar conta"}
@@ -69,7 +69,7 @@ export function AuthForm() {
               placeholder="Seu nome"
               {...register("name")}
               disabled={isLoading}
-              className="h-12 text-lg dark:bg-[#1E293B] dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
+              className="h-12 text-lg dark:bg-dark-secondary dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
             />
             {errors.name && (
               <p className="text-base text-red-500 dark:text-red-400">{errors.name.message}</p>
@@ -85,7 +85,7 @@ export function AuthForm() {
             placeholder="seu@email.com"
             {...register("email")}
             disabled={isLoading}
-            className="h-12 text-lg dark:bg-[#1E293B] dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
+            className="h-12 text-lg dark:bg-dark-secondary dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
           />
           {errors.email && (
             <p className="text-base text-red-500 dark:text-red-400">{errors.email.message}</p>
@@ -100,7 +100,7 @@ export function AuthForm() {
               type={showPassword ? "text" : "password"}
               {...register("password")}
               disabled={isLoading}
-              className="h-12 text-lg pr-10 dark:bg-[#1E293B] dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
+              className="h-12 text-lg pr-10 dark:bg-dark-secondary dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
             />
             <Button
               type="button"
@@ -130,7 +130,7 @@ export function AuthForm() {
                 type={showConfirmPassword ? "text" : "password"}
                 {...register("confirmPassword")}
                 disabled={isLoading}
-                className="h-12 text-lg pr-10 dark:bg-[#1E293B] dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
+                className="h-12 text-lg pr-10 dark:bg-dark-secondary dark:border-[#1E293B] dark:placeholder:text-[#94A3B8] dark:text-[#F1F5F9]"
               />
               <Button
                 type="button"
@@ -176,7 +176,7 @@ export function AuthForm() {
           <span className="w-full border-t dark:border-[#1E293B]" />
         </div>
         <div className="relative flex justify-center text-sm uppercase">
-          <span className="bg-white dark:bg-[#111827] px-2 text-muted-foreground dark:text-[#94A3B8]">
+          <span className="bg-white dark:bg-dark-card px-2 text-muted-foreground dark:text-[#94A3B8]">
             ou continue com
           </span>
         </div>
@@ -185,7 +185,7 @@ export function AuthForm() {
       <Button
         variant="outline"
         type="button"
-        className="w-full h-12 text-lg font-poppins dark:bg-[#1E293B] dark:border-[#1E293B] dark:text-[#F1F5F9] dark:hover:bg-[#1E293B]/90"
+        className="w-full h-12 text-lg font-poppins dark:bg-dark-secondary dark:border-[#1E293B] dark:text-[#F1F5F9] dark:hover:bg-dark-secondary/90"
         onClick={() => loginWithGoogle()}
         disabled={isLoading}
       >

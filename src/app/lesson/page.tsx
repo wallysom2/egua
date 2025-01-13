@@ -35,16 +35,14 @@ export default function LessonPage() {
   const isLessonCompleted = completedExercises === totalExercises;
 
   return (
-    <main className="min-h-screen bg-background dark:bg-[#0A0F1C] font-roboto">
+    <main className="min-h-screen bg-background dark:bg-dark-background font-roboto">
       {/* Header com navegação e progresso */}
-      <nav className="w-full px-14 py-6 bg-card/80 shadow-lg border-b dark:border-[#1E293B]/30 dark:bg-[#111827]/70 backdrop-blur-sm sticky top-0 z-50">
+      <nav className="w-full px-14 py-6 bg-card/80 shadow-lg border-b dark:border-[#1E293B]/30 dark:bg-dark-card/70 backdrop-blur-sm sticky top-0 z-50">
         <div className="flex flex-col gap-4 max-w-[1400px] mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="text-4xl font-poppins font-bold tracking-tight">
-                <span className="bg-gradient-to-r from-[#3B82F6] via-[#6366F1] to-[#8B5CF6] dark:from-[#60A5FA] dark:via-[#818CF8] dark:to-[#A78BFA] bg-clip-text text-transparent">
                   {lesson.title}
-                </span>
               </h1>
               <div className="flex items-center gap-4">
                 <Progress value={progressPercentage} className="w-48 h-2" />
@@ -64,7 +62,7 @@ export default function LessonPage() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="text-lg dark:bg-[#1E293B] dark:border-[#1E293B] dark:text-[#F1F5F9] dark:hover:bg-[#1E293B]/90 gap-2"
+                  className="text-lg dark:bg-dark-secondary dark:border-[#1E293B] dark:text-[#F1F5F9] dark:hover:bg-dark-secondary/90 gap-2 h-12"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +76,7 @@ export default function LessonPage() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Voltar ao Dashboard
+                  Voltar
                 </Button>
               </Link>
             </div>
@@ -90,7 +88,7 @@ export default function LessonPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Conteúdo */}
           <div className="lg:sticky lg:top-32 lg:self-start">
-            <Card className="bg-card/50 border shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-[#111827]/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm">
+            <Card className="bg-card/50 border shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-dark-card/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm">
               <CardHeader className="space-y-2">
                 <CardTitle className="text-3xl font-poppins text-slate-800 dark:text-slate-100 flex items-center gap-3">
                   <span className="h-8 w-1 bg-gradient-to-b from-[#3B82F6] to-[#8B5CF6] rounded-full" />
@@ -134,7 +132,7 @@ export default function LessonPage() {
                         </li>
                       ),
                       code: ({ children, className }) => {
-                        const match = /language-(\w+)/.exec(className || '');
+                        const match = /language-(\w+)/.exec(className ?? '');
                         const language = match ? match[1] : 'egua';
 
                         // Se não tiver linguagem especificada, é um código inline
@@ -190,7 +188,7 @@ export default function LessonPage() {
                   key={exercise.id} 
                   className={`bg-card/50 border shadow-lg transition-all duration-300 
                     ${!isPrevCompleted ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl'}
-                    dark:bg-[#111827]/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm`}
+                    dark:bg-dark-card/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm`}
                 >
                   <CardHeader className="flex flex-row items-center justify-between space-y-0">
                     <div className="space-y-1.5">

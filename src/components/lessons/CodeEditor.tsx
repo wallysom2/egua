@@ -28,6 +28,7 @@ export default function CodeEditor({
   const [error, setError] = useState("");
   const [feedback, setFeedback] = useState<string>("");
   const [isLoadingFeedback, setIsLoadingFeedback] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
 
   const runCode = async () => {
     setIsRunning(true);
@@ -87,7 +88,31 @@ export default function CodeEditor({
       
       setOutput(simulatedOutput);
 
-      // Obter feedback do Gemini
+      // Se o exercício já estiver completo, não precisa obter feedback nem enviar resposta
+      if (isCompleted) {
+        setIsRunning(false);
+        return;
+      }
+
+      // Verificar se o output corresponde ao esperado
+      if (simulatedOutput === expectedOutput && !isCompleted) {
+        setIsCorrect(true);
+        await fetch("/api/progress", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            exerciseId,
+            lessonId,
+            code,
+            completed: true,
+          }),
+        });
+        return; // Retorna sem obter feedback se a resposta estiver correta
+      }
+
+      // Só obtém feedback se a resposta estiver incorreta
       setIsLoadingFeedback(true);
       const feedbackResponse = await fetch("/api/feedback", {
         method: "POST",
@@ -109,25 +134,6 @@ export default function CodeEditor({
 
       const feedbackData = await feedbackResponse.json() as { feedback: string };
       setFeedback(feedbackData.feedback);
-
-      // Verificar se o output corresponde ao esperado
-      if (simulatedOutput === expectedOutput && !isCompleted) {
-        await fetch("/api/progress", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            exerciseId,
-            lessonId,
-            code,
-            completed: true,
-          }),
-        });
-
-        // Recarregar a página para atualizar o status
-        window.location.reload();
-      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Erro ao executar o código");
     } finally {
@@ -142,23 +148,24 @@ export default function CodeEditor({
         <textarea
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="w-full h-64 p-6 font-mono text-xl bg-[#1E293B] dark:bg-[#0F172A] text-slate-200 dark:text-slate-100 rounded-lg border-2 border-slate-400/20 dark:border-slate-700 focus:border-[#6366F1] dark:focus:border-[#818CF8] focus:ring-2 focus:ring-[#6366F1]/50 dark:focus:ring-[#818CF8]/50"
+          className="w-full h-64 p-6 font-mono text-xl bg-[#1E293B] dark:bg-[#1E293B] rounded-lg text-slate-200 outline-none"
           placeholder="Digite seu código aqui..."
           style={{ lineHeight: '2' }}
+          readOnly={isCompleted}
         />
       </div>
 
       <div className="flex justify-between items-center">
         <button
           onClick={runCode}
-          disabled={isRunning}
+          disabled={isRunning || isCompleted}
           className={`px-8 py-4 text-xl rounded-lg font-medium ${
-            isRunning
+            isRunning || isCompleted
               ? "bg-slate-400 dark:bg-slate-600 cursor-not-allowed"
               : "bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-[#6366F1] dark:hover:bg-[#4F46E5] text-white shadow-lg hover:shadow-xl transition-all"
           }`}
         >
-          {isRunning ? "Executando..." : "Executar Código"}
+          {isRunning ? "Executando..." : isCompleted ? "Exercício Completo" : "Executar Código"}
         </button>
 
         {isCompleted && (
@@ -180,7 +187,7 @@ export default function CodeEditor({
         )}
       </div>
 
-      {error && (
+      {error && !isCompleted && (
         <div className="p-8 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg border-2 border-red-200 dark:border-red-800/30">
           <div className="flex items-start">
             <svg className="h-6 w-6 mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -191,14 +198,35 @@ export default function CodeEditor({
         </div>
       )}
 
-      {output && (
+      {output && !isCompleted && (
         <div className="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-2 border-slate-200 dark:border-slate-800">
           <h4 className="text-2xl font-medium mb-6 text-slate-900 dark:text-slate-100">Saída do Programa:</h4>
-          <pre className="font-mono text-xl bg-white dark:bg-[#1E293B] text-slate-900 dark:text-slate-100 p-6 rounded-md border border-slate-200 dark:border-slate-700 leading-relaxed">{output}</pre>
+          <pre className="font-mono text-xl bg-white dark:bg-dark-secondary text-slate-900 dark:text-slate-100 p-6 rounded-md border border-slate-200 dark:border-slate-700 leading-relaxed">{output}</pre>
+          {isCorrect && (
+            <div className="mt-4 p-4 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 rounded-lg border border-emerald-200 dark:border-emerald-800/30">
+              <div className="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <p className="text-lg font-medium">Resposta Correta! Parabéns!</p>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
-      {isLoadingFeedback && (
+      {isLoadingFeedback && !isCompleted && (
         <div className="p-8 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg border-2 border-blue-200 dark:border-blue-800/30 animate-pulse">
           <div className="flex items-center">
             <svg className="animate-spin h-8 w-8 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -210,7 +238,7 @@ export default function CodeEditor({
         </div>
       )}
 
-      {feedback && (
+      {feedback && !isCompleted && (
         <div className="p-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-2 border-blue-200 dark:border-blue-800/30">
           <h4 className="text-2xl font-medium mb-6 flex items-center text-blue-800 dark:text-blue-400">
             <svg className="h-8 w-8 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">

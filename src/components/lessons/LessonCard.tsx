@@ -31,7 +31,7 @@ export default function LessonCard({ lesson }: LessonCardProps) {
       dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm
       ${isCompleted 
         ? "bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800/30" 
-        : "bg-white dark:bg-[#111827]/50"
+        : "bg-white dark:bg-dark-card/50"
       }
     `}>
       <CardHeader>
@@ -62,7 +62,7 @@ export default function LessonCard({ lesson }: LessonCardProps) {
         
         <div className="space-y-4">
           {/* Barra de Progresso */}
-          <div className="w-full bg-slate-100 dark:bg-[#1E293B] rounded-full h-4">
+          <div className="w-full bg-slate-100 dark:bg-dark-secondary rounded-full h-4">
             <div
               className={`h-full rounded-full ${
                 isCompleted 

@@ -10,9 +10,9 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <main className="min-h-screen bg-background dark:bg-[#0A0F1C] font-roboto">
+      <main className="min-h-screen bg-background dark:bg-dark-background font-roboto">
         {/* Header com Login */}
-          <nav className="w-full px-14 py-6 bg-card shadow-sm border-b dark:border-[#1E293B]/30 dark:bg-[#111827]/70 backdrop-blur-sm">
+          <nav className="w-full px-14 py-6 bg-card shadow-sm border-b dark:border-[#1E293B]/30 dark:bg-dark-card/70 backdrop-blur-sm">
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-poppins font-bold tracking-tight">
               <span className="bg-gradient-to-r from-[#3B82F6] via-[#6366F1] to-[#8B5CF6] dark:from-[#60A5FA] dark:via-[#818CF8] dark:to-[#A78BFA] bg-clip-text text-transparent">
@@ -78,7 +78,7 @@ export default async function Home() {
 
             {/* Cards de Benefícios */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
-              <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-[#111827]/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-2">
+              <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-dark-card/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-2">
                 <CardHeader>
                   <div className="text-5xl mb-4">👋</div>
                   <CardTitle className="text-2xl font-poppins text-foreground dark:text-[#F1F5F9] tracking-tight font-bold">Fácil de Começar</CardTitle>
@@ -88,7 +88,7 @@ export default async function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-[#111827]/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-2">
+              <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-dark-card/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-2">
                 <CardHeader>
                   <div className="text-5xl mb-4">⏱️</div>
                   <CardTitle className="text-2xl font-poppins text-foreground dark:text-[#F1F5F9] tracking-tight font-bold">Aprenda no seu Ritmo</CardTitle>
@@ -98,7 +98,7 @@ export default async function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-[#111827]/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-2">
+              <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-dark-card/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-2">
                 <CardHeader>
                   <div className="text-5xl mb-4">👥</div>
                   <CardTitle className="text-2xl font-poppins text-foreground dark:text-[#F1F5F9] tracking-tight font-bold">Comunidade Ativa</CardTitle>
