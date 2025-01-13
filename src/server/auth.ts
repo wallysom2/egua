@@ -67,7 +67,12 @@ export const {
       clientId: env.AUTH_GOOGLE_ID,
       clientSecret: env.AUTH_GOOGLE_SECRET,
       allowDangerousEmailAccountLinking: true,
-      profile(profile) {
+      profile(profile: {
+        sub: string;
+        name: string;
+        email: string;
+        picture: string;
+      }) {
         return {
           id: profile.sub,
           name: profile.name,
@@ -96,7 +101,7 @@ export const {
             where: { email: email.toLowerCase() },
           });
 
-          if (!user || !user.password) {
+          if (!user?.password) {
             throw new Error("Email ou senha incorretos");
           }
 

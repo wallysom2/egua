@@ -1,5 +1,5 @@
 import { signIn as nextAuthSignIn, signOut as nextAuthSignOut } from "next-auth/react";
-import { LoginInput, RegisterInput } from "~/lib/validations/auth";
+import type { LoginInput, RegisterInput } from "~/lib/validations/auth";
 
 export class AuthError extends Error {
   constructor(message: string) {
@@ -22,7 +22,7 @@ export const AuthService = {
         }),
       });
 
-      const json = await response.json();
+      const json = (await response.json()) as { error?: string };
 
       if (!response.ok) {
         throw new AuthError(json.error ?? "Erro ao criar conta");

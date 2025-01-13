@@ -1,12 +1,12 @@
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { LoginInput, RegisterInput } from "~/lib/validations/auth";
+import type { LoginInput, RegisterInput } from "~/lib/validations/auth";
 import { AuthService } from "~/services/auth";
 import { useAuthStore } from "~/stores/auth-store";
 
 export function useAuth() {
   const router = useRouter();
-  const { setUser, setLoading, setError, reset } = useAuthStore();
+  const { setLoading, setError, reset } = useAuthStore();
 
   const register = useCallback(
     async (data: RegisterInput) => {
