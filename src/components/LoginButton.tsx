@@ -20,7 +20,7 @@ export function LoginButton({ className, children }: LoginButtonProps) {
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          className={className || `
+          className={className ?? `
             flex items-center gap-3
             h-12 px-8
             bg-[#4F46E5] hover:bg-[#4338CA]
@@ -32,7 +32,7 @@ export function LoginButton({ className, children }: LoginButtonProps) {
           `}
           size="default"
         >
-          {children || (
+          {children ?? (
             <>
               <FaGoogle className="w-5 h-5" />
               <span>Entrar</span>

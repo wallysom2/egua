@@ -52,8 +52,9 @@ export default function CodeEditor({
 
         // Processar declaração de variável
         if (trimmedLine.startsWith("var ")) {
-          const match = trimmedLine.match(/var\s+(\w+)\s*=\s*"([^"]*)"/)
-          if (match && match[1] && match[2]) {
+          const varRegex = /var\s+(\w+)\s*=\s*"([^"]*)"/;
+          const match = varRegex.exec(trimmedLine);
+          if (match?.[1] && match?.[2]) {
             const [, name, value] = match;
             variables[name] = value;
           }
@@ -62,8 +63,9 @@ export default function CodeEditor({
 
         // Processar atribuição de variável
         if (trimmedLine.includes("=") && !trimmedLine.startsWith("var")) {
-          const match = trimmedLine.match(/(\w+)\s*=\s*"([^"]*)"/)
-          if (match && match[1] && match[2]) {
+          const assignRegex = /(\w+)\s*=\s*"([^"]*)"/;
+          const match = assignRegex.exec(trimmedLine);
+          if (match?.[1] && match?.[2]) {
             const [, name, value] = match;
             variables[name] = value;
           }
@@ -72,8 +74,10 @@ export default function CodeEditor({
 
         // Processar comando escreva
         if (trimmedLine.startsWith("escreva")) {
-          const match = trimmedLine.match(/escreva\("([^"]*)"\)/) || trimmedLine.match(/escreva\((\w+)\)/);
-          if (match && match[1]) {
+          const writeRegex = /escreva\("([^"]*)"\)/;
+          const writeVarRegex = /escreva\((\w+)\)/;
+          const match = writeRegex.exec(trimmedLine) ?? writeVarRegex.exec(trimmedLine);
+          if (match?.[1]) {
             const value = match[1];
             // Se for uma variável, usar seu valor
             simulatedOutput = variables[value] ?? value;
@@ -103,8 +107,8 @@ export default function CodeEditor({
         throw new Error("Erro ao obter feedback");
       }
 
-      const { feedback: geminiFeedback } = await feedbackResponse.json();
-      setFeedback(geminiFeedback);
+      const feedbackData = await feedbackResponse.json() as { feedback: string };
+      setFeedback(feedbackData.feedback);
 
       // Verificar se o output corresponde ao esperado
       if (simulatedOutput === expectedOutput && !isCompleted) {

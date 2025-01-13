@@ -1,19 +1,29 @@
-import Link from "next/link";
-import { type Lesson, type UserProgress } from "@prisma/client";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { type Lesson, type UserProgress, type Exercise } from "@prisma/client";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
+import { useLessonStore } from "~/stores/lesson-store";
 
 interface LessonCardProps {
   lesson: Lesson & {
-    exercises: { id: string }[];
+    exercises: Exercise[];
     progress: UserProgress[];
   };
 }
 
 export default function LessonCard({ lesson }: LessonCardProps) {
+  const router = useRouter();
+  const setCurrentLesson = useLessonStore((state) => state.setCurrentLesson);
   const totalExercises = lesson.exercises.length;
   const completedExercises = lesson.progress.filter(p => p.completed).length;
   const isCompleted = completedExercises === totalExercises;
+
+  const handleStartLesson = () => {
+    setCurrentLesson(lesson);
+    router.push("/lesson");
+  };
 
   return (
     <Card className={`
@@ -71,18 +81,17 @@ export default function LessonCard({ lesson }: LessonCardProps) {
             }`}>
               {completedExercises} de {totalExercises} exercícios completos
             </span>
-            <Link href={`/lesson/${lesson.id}`}>
-              <Button 
-                size="lg" 
-                className={`text-lg px-6 ${
-                  isCompleted
-                    ? "bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-600"
-                    : "bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-[#6366F1] dark:hover:bg-[#4F46E5]"
-                } dark:text-white`}
-              >
-                {isCompleted ? "Revisar" : "Continuar"} →
-              </Button>
-            </Link>
+            <Button 
+              onClick={handleStartLesson}
+              size="lg" 
+              className={`text-lg px-6 ${
+                isCompleted
+                  ? "bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-600"
+                  : "bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-[#6366F1] dark:hover:bg-[#4F46E5]"
+              } dark:text-white`}
+            >
+              {isCompleted ? "Revisar" : "Continuar"} →
+            </Button>
           </div>
         </div>
       </CardContent>

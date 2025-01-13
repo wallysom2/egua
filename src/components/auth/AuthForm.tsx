@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { LoginInput, RegisterInput, loginSchema, registerSchema } from "~/lib/validations/auth";
+import type { LoginInput, RegisterInput } from "~/lib/validations/auth";
+import { loginSchema, registerSchema } from "~/lib/validations/auth";
 import { useAuth } from "~/hooks/use-auth";
 import { useAuthStore } from "~/stores/auth-store";
 import { Button } from "~/components/ui/button";

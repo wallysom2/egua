@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const body = await req.json();
+    const body = await req.json() as z.infer<typeof progressSchema>;
     const result = progressSchema.safeParse(body);
 
     if (!result.success) {
@@ -68,14 +68,14 @@ export async function POST(req: Request) {
       },
       update: {
         completed,
-        code: code || "",
+        code: code ?? "",
       },
       create: {
         userId: session.user.id,
         lessonId,
         exerciseId,
         completed,
-        code: code || "",
+        code: code ?? "",
       },
     });
 

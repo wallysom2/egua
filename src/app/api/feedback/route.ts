@@ -3,6 +3,14 @@ import { auth } from "~/server/auth";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { EGUA_CONTEXT } from "./egua-context";
 
+interface FeedbackRequest {
+  code: string;
+  exerciseDescription: string;
+  expectedOutput: string;
+  actualOutput: string;
+  expectedCode?: string;
+}
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 const generateEguaPrompt = (exerciseDescription: string, expectedOutput: string, actualOutput: string, code: string, expectedCode: string) => `
@@ -55,16 +63,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
     }
 
-    const { code, exerciseDescription, expectedOutput, actualOutput, expectedCode } = await req.json();
+    const { code, exerciseDescription, expectedOutput, actualOutput, expectedCode } = (await req.json()) as FeedbackRequest;
 
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
     const prompt = generateEguaPrompt(
-      exerciseDescription, 
-      expectedOutput, 
-      actualOutput, 
+      exerciseDescription,
+      expectedOutput,
+      actualOutput,
       code,
-      expectedCode || "// Código de referência não fornecido"
+      expectedCode ?? "// Código de referência não fornecido"
     );
     
     const result = await model.generateContent(prompt);

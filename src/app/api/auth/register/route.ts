@@ -1,11 +1,11 @@
 import { hash } from "bcryptjs";
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
-import { registerSchema } from "~/lib/validations/auth";
+import { registerSchema, type RegisterInput } from "~/lib/validations/auth";
 
 export async function POST(req: Request) {
   try {
-    const json = await req.json();
+    const json = (await req.json()) as RegisterInput;
     const body = registerSchema.parse(json);
 
     const existingUser = await db.user.findUnique({
