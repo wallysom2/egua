@@ -41,6 +41,8 @@ export const {
   },
   callbacks: {
     jwt: async ({ token, user }) => {
+      console.log("[DEBUG] JWT Callback - Token:", JSON.stringify(token));
+      console.log("[DEBUG] JWT Callback - User:", user ? JSON.stringify(user) : "No user");
       if (user) {
         token.id = user.id;
         token.role = user.role;
@@ -48,6 +50,8 @@ export const {
       return token;
     },
     session: ({ session, token }) => {
+      console.log("[DEBUG] Session Callback - Token:", JSON.stringify(token));
+      console.log("[DEBUG] Session Callback - Session:", JSON.stringify(session));
       if (token) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
@@ -55,6 +59,8 @@ export const {
       return session;
     },
     redirect: ({ url, baseUrl }) => {
+      console.log("[DEBUG] Redirect Callback - URL:", url);
+      console.log("[DEBUG] Redirect Callback - Base URL:", baseUrl);
       // Após o login, redireciona para o dashboard
       if (url.startsWith(baseUrl)) {
         return `${baseUrl}/dashboard`;
@@ -73,13 +79,16 @@ export const {
         email: string;
         picture: string;
       }) {
-        return {
+        console.log("[DEBUG] Google Profile Callback - Raw Profile:", JSON.stringify(profile));
+        const userProfile = {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
           image: profile.picture,
           role: "user",
         };
+        console.log("[DEBUG] Google Profile Callback - Processed Profile:", JSON.stringify(userProfile));
+        return userProfile;
       },
     }),
     CredentialsProvider({
@@ -128,10 +137,14 @@ export const {
     }),
   ],
   events: {
-    async signIn({ user }) {
+    async signIn({ user, account, profile }) {
+      console.log("[DEBUG] SignIn Event - User:", JSON.stringify(user));
+      console.log("[DEBUG] SignIn Event - Account:", JSON.stringify(account));
+      console.log("[DEBUG] SignIn Event - Profile:", JSON.stringify(profile));
       console.log(`Usuário ${user.email} fez login com sucesso`);
     },
     async signOut() {
+      console.log("[DEBUG] SignOut Event");
       console.log(`Usuário desconectado`);
     },
   },
