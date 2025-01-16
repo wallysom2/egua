@@ -36,7 +36,7 @@ export default function LessonCard({ lesson }: LessonCardProps) {
     `}>
       <CardHeader>
         <div className="flex items-center gap-4">
-          <CardTitle className="text-2xl font-poppins dark:text-[#F1F5F9]">{lesson.title}</CardTitle>
+          <CardTitle className="text-2xl font-poppins dark:text-[#F2F2F2]">{lesson.title}</CardTitle>
           {isCompleted && (
             <span className="text-emerald-500 dark:text-emerald-400">
               <svg
@@ -58,7 +58,7 @@ export default function LessonCard({ lesson }: LessonCardProps) {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        <p className="text-lg text-slate-600 dark:text-[#94A3B8]">{lesson.description}</p>
+        <p className="text-lg text-slate-600 dark:text-[#F2F2F2]">{lesson.description}</p>
         
         <div className="space-y-4">
           {/* Barra de Progresso */}
@@ -77,7 +77,7 @@ export default function LessonCard({ lesson }: LessonCardProps) {
             <span className={`text-lg ${
               isCompleted 
                 ? "text-emerald-600 dark:text-emerald-400" 
-                : "text-slate-600 dark:text-[#94A3B8]"
+                : "text-slate-600 dark:text-[#F2F2F2]"
             }`}>
               {completedExercises} de {totalExercises} exercícios completos
             </span>
@@ -87,7 +87,7 @@ export default function LessonCard({ lesson }: LessonCardProps) {
               className={`text-lg px-6 ${
                 isCompleted
                   ? "bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-600"
-                  : "bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-[#6366F1] dark:hover:bg-[#4F46E5]"
+                  : "bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-[#35354b] dark:hover:bg-[#4F46E5]"
               } dark:text-white`}
             >
               {isCompleted ? "Revisar" : "Continuar"} →

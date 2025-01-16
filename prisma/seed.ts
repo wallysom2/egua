@@ -9,14 +9,14 @@ async function main() {
     await prisma.exercise.deleteMany();
     await prisma.lesson.deleteMany();
 
-    // Lição 1: Hello World em Égua
+    // Lição 1: Olá Mundo em Égua
     await prisma.lesson.create({
       data: {
-        title: "👋 Hello World em Égua",
+        title: "👋 Olá Mundo em Égua",
         description: "Dê seus primeiros passos na programação com a linguagem Égua!",
         content: `
 
-Que tal começar com o famoso "Hello World"? É uma tradição que todo programador começa assim!
+Que tal começar com o famoso "Olá Mundo"? É uma tradição que todo programador começa assim!
 
 ## O que vamos aprender? 📚
 

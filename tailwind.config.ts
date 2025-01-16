@@ -65,7 +65,7 @@ export default {
                     card: "#1E293B",
                     secondary: "#334155",
                     text: {
-                        primary: "#FFFFFF",
+                        primary: "#F2F2F2",
                         secondary: "#CBD5E1",
                         muted: "#94A3B8"
                     }

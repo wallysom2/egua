@@ -57,7 +57,7 @@ export default async function DashboardPage() {
           <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-dark-card/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-6">
             <CardHeader className="flex flex-row items-center justify-between pb-2 p-0">
               <div className="flex-1">
-                <CardTitle className="text-2xl md:text-3xl mb-2 font-poppins dark:text-[#F1F5F9]">
+                <CardTitle className="text-2xl md:text-3xl mb-2 font-poppins dark:text-[#F2F2F2]">
                   Olá, {session.user.name}!
                 </CardTitle>
               </div>
@@ -78,7 +78,7 @@ export default async function DashboardPage() {
                       d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
                     />
                   </svg>
-                  <span className="text-lg font-medium dark:text-[#F1F5F9]">
+                  <span className="text-lg font-medium dark:text-[#F2F2F2]">
                     {completedLessons}/{lessons.length}
                   </span>
                 </div>
@@ -93,7 +93,7 @@ export default async function DashboardPage() {
 
         {/* Lista de Lições */}
         <section>
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 font-poppins dark:text-[#F8FAFC]">Suas Lições</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 font-poppins dark:text-[#F2F2F2]">Suas Lições</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {lessons.map((lesson) => (
               <LessonCard key={lesson.id} lesson={lesson} />

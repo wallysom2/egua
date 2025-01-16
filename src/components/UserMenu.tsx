@@ -44,60 +44,70 @@ export function UserMenu({ user }: UserMenuProps) {
         <DropdownMenuTrigger asChild>
           <Button 
             variant="ghost" 
-            className="relative h-10 w-10 rounded-full ring-2 ring-blue-500/20 hover:ring-blue-500/40 transition-all duration-200"
+            className="relative h-12 w-12 rounded-full ring-2 ring-[#3B82F6]/20 hover:ring-[#6366F1]/40 transition-all duration-200"
+            aria-label="Abrir menu do usuário"
+            aria-haspopup="true"
           >
             {user?.image ? (
               <Image
                 src={user.image}
-                alt={user.name ?? "Avatar"}
+                alt={`Foto de perfil de ${user.name ?? "usuário"}`}
                 className="rounded-full object-cover"
                 fill
-                sizes="40px"
+                sizes="48px"
                 priority
               />
             ) : (
-              <div className="flex items-center justify-center w-full h-full bg-blue-100 dark:bg-blue-900 rounded-full">
-                <User className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <div className="flex items-center justify-center w-full h-full bg-[#3B82F6]/10 dark:bg-[#60A5FA]/10 rounded-full" aria-hidden="true">
+                <User className="w-6 h-6 text-[#3B82F6] dark:text-[#60A5FA]" />
               </div>
             )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuContent align="end" className="w-64 bg-card dark:bg-dark-card/50 dark:border-[#1E293B]/30 backdrop-blur-sm" role="menu">
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">{user?.name}</p>
+              <p className="text-base font-medium leading-none font-poppins dark:text-[#F2F2F2]">
+                {user?.name ? `Olá, ${user.name}` : 'Olá, usuário'}
+              </p>
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className="dark:border-[#1E293B]/30" />
           <DropdownMenuItem 
             onClick={() => setShowLogoutDialog(true)}
-            className="text-red-600 dark:text-red-400 cursor-pointer"
+            className="text-red-700 dark:text-red-400 cursor-pointer text-base py-3 hover:bg-[#3B82F6]/5 dark:hover:bg-[#60A5FA]/5"
+            role="menuitem"
+            aria-label="Sair da sua conta"
           >
-            Sair da conta
+            <span className="flex items-center gap-2">
+              Sair da conta
+            </span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
       <AlertDialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
-        <AlertDialogContent>
+        <AlertDialogContent className="max-w-md bg-card dark:bg-dark-card/50 dark:border-[#1E293B]/30 backdrop-blur-sm">
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirmar Saída</AlertDialogTitle>
-            <AlertDialogDescription>
-              Tem certeza que deseja sair da sua conta? Você precisará fazer login novamente para acessar sua conta.
+            <AlertDialogTitle className="text-xl font-poppins dark:text-[#F2F2F2]">Confirmar Saída</AlertDialogTitle>
+            <AlertDialogDescription className="text-base leading-relaxed">
+              Tem certeza que deseja sair da sua conta? 
+              <br />
+              Você precisará fazer login novamente para acessar sua conta.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="gap-2">
+          <AlertDialogFooter className="gap-3">
             <AlertDialogCancel 
               onClick={() => setShowLogoutDialog(false)}
-              className="hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="text-base py-3 px-5 hover:bg-[#3B82F6]/5 dark:hover:bg-[#60A5FA]/5 dark:border-[#1E293B]/30"
             >
               Cancelar
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleLogout}
-              className="bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
+              className="text-base py-3 px-5 bg-gradient-to-r from-[#3B82F6] via-[#6366F1] to-[#8B5CF6] hover:opacity-90 dark:from-[#60A5FA] dark:via-[#818CF8] dark:to-[#A78BFA]"
             >
-              Sair
+              Sim, quero sair
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

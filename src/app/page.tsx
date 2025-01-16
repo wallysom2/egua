@@ -34,13 +34,13 @@ export default async function Home() {
           <div className="flex flex-col items-center justify-center space-y-16">
             {/* Logo e Título */}
             <div className="text-center space-y-8">
-              <h1 className="text-5xl md:text-6xl font-poppins font-bold text-foreground dark:text-[#F8FAFC] leading-tight tracking-tight">
+              <h1 className="text-5xl md:text-6xl font-poppins font-bold text-foreground dark:text-[#F2F2F2] leading-tight tracking-tight">
                 Aprenda a Programar<br />com{" "}
                 <span className="font-poppins bg-gradient-to-r from-[#3B82F6] via-[#6366F1] to-[#8B5CF6] dark:from-[#60A5FA] dark:via-[#818CF8] dark:to-[#A78BFA] bg-clip-text text-transparent">
                   Égua
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground dark:text-[#94A3B8] max-w-3xl mx-auto leading-relaxed font-light tracking-wide">
+              <p className="text-xl md:text-2xl text-muted-foreground dark:text-[#F2F2F2] max-w-3xl mx-auto leading-relaxed font-light tracking-wide">
                 Uma jornada simplificada para aprender programação, especialmente pensada para você
               </p>
             </div>
@@ -81,30 +81,30 @@ export default async function Home() {
               <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-dark-card/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-2">
                 <CardHeader>
                   <div className="text-5xl mb-4">👋</div>
-                  <CardTitle className="text-2xl font-poppins text-foreground dark:text-[#F1F5F9] tracking-tight font-bold">Fácil de Começar</CardTitle>
+                  <CardTitle className="text-2xl font-poppins text-foreground dark:text-[#F2F2F2] tracking-tight font-bold">Fácil de Começar</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg leading-relaxed text-muted-foreground dark:text-[#94A3B8] font-light tracking-wide">Interface amigável e tutoriais passo a passo em português</p>
+                  <p className="text-lg leading-relaxed text-muted-foreground dark:text-[#F2F2F2] font-light tracking-wide">Interface amigável e tutoriais passo a passo em português</p>
                 </CardContent>
               </Card>
 
               <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-dark-card/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-2">
                 <CardHeader>
                   <div className="text-5xl mb-4">⏱️</div>
-                  <CardTitle className="text-2xl font-poppins text-foreground dark:text-[#F1F5F9] tracking-tight font-bold">Aprenda no seu Ritmo</CardTitle>
+                  <CardTitle className="text-2xl font-poppins text-foreground dark:text-[#F2F2F2] tracking-tight font-bold">Aprenda no seu Ritmo</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg leading-relaxed text-muted-foreground dark:text-[#94A3B8] font-light tracking-wide">Exercícios adaptados e suporte personalizado</p>
+                  <p className="text-lg leading-relaxed text-muted-foreground dark:text-[#F2F2F2] font-light tracking-wide">Exercícios adaptados e suporte personalizado</p>
                 </CardContent>
               </Card>
 
               <Card className="bg-card border shadow-lg hover:shadow-xl transition-shadow dark:bg-dark-card/50 dark:border-[#1E293B]/30 dark:hover:shadow-primary/5 backdrop-blur-sm p-2">
                 <CardHeader>
                   <div className="text-5xl mb-4">👥</div>
-                  <CardTitle className="text-2xl font-poppins text-foreground dark:text-[#F1F5F9] tracking-tight font-bold">Comunidade Ativa</CardTitle>
+                  <CardTitle className="text-2xl font-poppins text-foreground dark:text-[#F2F2F2] tracking-tight font-bold">Comunidade Ativa</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg leading-relaxed text-muted-foreground dark:text-[#94A3B8] font-light tracking-wide">Conecte-se com outros aprendizes e mentores</p>
+                  <p className="text-lg leading-relaxed text-muted-foreground dark:text-[#F2F2F2] font-light tracking-wide">Conecte-se com outros aprendizes e mentores</p>
                 </CardContent>
               </Card>
             </div>

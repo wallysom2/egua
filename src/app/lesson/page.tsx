@@ -62,7 +62,7 @@ export default function LessonPage() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="text-lg dark:bg-dark-secondary dark:border-[#1E293B] dark:text-[#F1F5F9] dark:hover:bg-dark-secondary/90 gap-2 h-12"
+                  className="text-lg dark:bg-dark-secondary dark:border-[#1E293B] dark:text-[#F2F2F2] dark:hover:bg-dark-secondary/90 gap-2 h-12"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -105,18 +105,18 @@ export default function LessonPage() {
                         </h1>
                       ),
                       h2: ({ children }) => (
-                        <h2 className="text-2xl font-semibold mb-4 text-slate-800 dark:text-slate-200">
+                        <h2 className="text-2xl font-semibold mb-4 text-slate-800 dark:text-[#F2F2F2]">
                           {children}
                         </h2>
                       ),
                       h3: ({ children }) => (
-                        <h3 className="text-xl font-medium mb-3 text-slate-700 dark:text-slate-300">
+                        <h3 className="text-xl font-medium mb-3 text-slate-700 dark:text-[#F2F2F2]">
                           {children}
                         </h3>
                       ),
                       p: ({ children, ...props }) => {
                         return (
-                          <p className="text-lg leading-relaxed mb-6 text-slate-700 dark:text-slate-300" {...props}>
+                          <p className="text-lg leading-relaxed mb-6 text-slate-700 dark:text-[#F2F2F2]" {...props}>
                             {children}
                           </p>
                         );
@@ -127,7 +127,7 @@ export default function LessonPage() {
                         </ul>
                       ),
                       li: ({ children }) => (
-                        <li className="text-lg text-slate-700 dark:text-slate-300">
+                        <li className="text-lg text-slate-700 dark:text-[#F2F2F2]">
                           {children}
                         </li>
                       ),
@@ -158,7 +158,7 @@ export default function LessonPage() {
                         );
                       },
                       strong: ({ children }) => (
-                        <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                        <strong className="font-semibold text-slate-900 dark:text-[#F2F2F2]">
                           {children}
                         </strong>
                       ),
@@ -192,7 +192,7 @@ export default function LessonPage() {
                 >
                   <CardHeader className="flex flex-row items-center justify-between space-y-0">
                     <div className="space-y-1.5">
-                      <CardTitle className="text-2xl font-poppins dark:text-[#F1F5F9] flex items-center gap-4">
+                      <CardTitle className="text-2xl font-poppins dark:text-[#F2F2F2] flex items-center gap-4">
                         <span className="flex items-center gap-2">
                           <span className="h-6 w-6 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white font-medium">
                             {index + 1}
@@ -208,7 +208,7 @@ export default function LessonPage() {
                   <CardContent className="space-y-6">
                     {isPrevCompleted ? (
                       <>
-                        <p className="text-lg text-slate-600 dark:text-[#94A3B8]">{exercise.description}</p>
+                        <p className="text-lg text-slate-600 dark:text-[#F2F2F2]">{exercise.description}</p>
                         <CodeEditor
                           exerciseId={exercise.id}
                           lessonId={lesson.id}
