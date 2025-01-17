@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 export function useAuth() {
   const router = useRouter();
   const { setLoading, setError, reset } = useAuthStore();
-  const session = useSession();
+  const { data: session, status } = useSession();
 
   const register = useCallback(
     async (data: RegisterInput) => {
@@ -38,16 +38,12 @@ export function useAuth() {
         setError(null);
         await AuthService.login(data);
         
-        // Debug do estado de autenticação de forma segura
-        console.log("Estado de autenticação:", {
-          status: session.status,
-          autenticado: session.status === "authenticated",
-          usuario: session.data?.user ?? "Não disponível",
-          horario: new Date().toISOString()
-        });
-        
-        router.refresh();
-        router.push("/dashboard");
+        if (status === "authenticated" && session?.user) {
+          router.refresh();
+          router.push("/dashboard");
+        } else {
+          setError("Falha na autenticação");
+        }
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
@@ -59,7 +55,7 @@ export function useAuth() {
         setLoading(false);
       }
     },
-    [router, setError, setLoading, session]
+    [router, setError, setLoading, status, session]
   );
 
   const loginWithGoogle = useCallback(async () => {
@@ -67,8 +63,10 @@ export function useAuth() {
       setLoading(true);
       setError(null);
       await AuthService.loginWithGoogle();
-      router.refresh();
-      router.push("/dashboard");
+      if (status === "authenticated" && session?.user) {
+        router.refresh();
+        router.push("/dashboard");
+      }
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -79,7 +77,7 @@ export function useAuth() {
     } finally {
       setLoading(false);
     }
-  }, [setError, setLoading]);
+  }, [setError, setLoading, status, session, router]);
 
   const logout = useCallback(async () => {
     try {
@@ -87,6 +85,7 @@ export function useAuth() {
       setError(null);
       await AuthService.logout();
       reset();
+      router.push("/");
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -97,12 +96,14 @@ export function useAuth() {
     } finally {
       setLoading(false);
     }
-  }, [reset, setError, setLoading]);
+  }, [reset, setError, setLoading, router]);
 
   return {
     register,
     login,
     loginWithGoogle,
     logout,
+    session,
+    status
   };
 } 
