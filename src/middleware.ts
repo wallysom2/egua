@@ -9,16 +9,21 @@ export async function middleware(request: NextRequest) {
     secret: env.AUTH_SECRET 
   });
   
-  const isAuthPage = request.nextUrl.pathname === "/";
+  const { pathname } = request.nextUrl;
+  const isAuthPage = pathname === "/";
+  const isDashboardPage = pathname.startsWith("/dashboard");
 
-  if (isAuthPage) {
-    if (token) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
-  } else if (!token) {
+  // Se estiver na página de autenticação e já estiver logado, redireciona para o dashboard
+  if (isAuthPage && token) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  // Se estiver tentando acessar o dashboard sem estar logado, redireciona para a página inicial
+  if (isDashboardPage && !token) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
+  // Se não for nenhum dos casos acima, permite o acesso
   return NextResponse.next();
 }
 

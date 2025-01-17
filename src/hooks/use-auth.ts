@@ -36,6 +36,7 @@ export function useAuth() {
         setError(null);
         await AuthService.login(data);
         router.refresh();
+        router.push("/dashboard");
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
@@ -55,6 +56,8 @@ export function useAuth() {
       setLoading(true);
       setError(null);
       await AuthService.loginWithGoogle();
+      router.refresh();
+      router.push("/dashboard");
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
