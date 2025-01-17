@@ -87,7 +87,7 @@ export default function LessonCard({ lesson }: LessonCardProps) {
               className={`text-lg px-6 ${
                 isCompleted
                   ? "bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-600"
-                  : "bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-[#35354b] dark:hover:bg-[#4F46E5]"
+                  : "bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-[#4F46E5] dark:hover:bg-[#4338CA]"
               } dark:text-white`}
             >
               {isCompleted ? "Revisar" : "Continuar"} →
