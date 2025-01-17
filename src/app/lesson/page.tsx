@@ -62,7 +62,7 @@ export default function LessonPage() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="text-lg dark:bg-dark-secondary dark:border-[#1E293B] dark:text-[#F2F2F2] dark:hover:bg-dark-secondary/90 gap-2 h-12"
+                  className="text-lg dark:bg-dark-secondary dark:border-[#1E293B] dark:text-[#F2F2F2] dark:hover:bg-dark-secondary/90 gap-2 h-16"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
