@@ -3,10 +3,12 @@ import { useRouter } from "next/navigation";
 import type { LoginInput, RegisterInput } from "~/lib/validations/auth";
 import { AuthService } from "~/services/auth";
 import { useAuthStore } from "~/stores/auth-store";
+import { useSession } from "next-auth/react";
 
 export function useAuth() {
   const router = useRouter();
   const { setLoading, setError, reset } = useAuthStore();
+  const { data: session } = useSession();
 
   const register = useCallback(
     async (data: RegisterInput) => {
@@ -35,6 +37,13 @@ export function useAuth() {
         setLoading(true);
         setError(null);
         await AuthService.login(data);
+        
+        console.log("Estado de autenticação:", {
+          autenticado: !!session,
+          usuario: session?.user,
+          horario: new Date().toISOString()
+        });
+        
         router.refresh();
         router.push("/dashboard");
       } catch (error) {
@@ -48,7 +57,7 @@ export function useAuth() {
         setLoading(false);
       }
     },
-    [router, setError, setLoading]
+    [router, setError, setLoading, session]
   );
 
   const loginWithGoogle = useCallback(async () => {
