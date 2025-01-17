@@ -61,11 +61,17 @@ export const {
     redirect: ({ url, baseUrl }) => {
       console.log("[DEBUG] Redirect Callback - URL:", url);
       console.log("[DEBUG] Redirect Callback - Base URL:", baseUrl);
-      // Após o login, redireciona para o dashboard
-      if (url.startsWith(baseUrl)) {
+      
+      // Se a URL for a página inicial e o usuário estiver autenticado, redireciona para o dashboard
+      if (url === baseUrl || url === `${baseUrl}/`) {
         return `${baseUrl}/dashboard`;
       }
-      return url;
+      // Se a URL já for uma URL interna válida, mantém ela
+      else if (url.startsWith(baseUrl)) {
+        return url;
+      }
+      // Para qualquer outra URL externa, redireciona para o dashboard
+      return `${baseUrl}/dashboard`;
     },
   },
   providers: [
