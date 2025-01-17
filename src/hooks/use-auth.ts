@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 export function useAuth() {
   const router = useRouter();
   const { setLoading, setError, reset } = useAuthStore();
-  const { data: session } = useSession();
+  const session = useSession();
 
   const register = useCallback(
     async (data: RegisterInput) => {
@@ -38,9 +38,11 @@ export function useAuth() {
         setError(null);
         await AuthService.login(data);
         
+        // Debug do estado de autenticação de forma segura
         console.log("Estado de autenticação:", {
-          autenticado: !!session,
-          usuario: session?.user,
+          status: session.status,
+          autenticado: session.status === "authenticated",
+          usuario: session.data?.user ?? "Não disponível",
           horario: new Date().toISOString()
         });
         
