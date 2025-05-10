@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "prisma generate && next build",
+    "build": "prisma db pull && prisma generate && next build",
     "seed": "node --import tsx prisma/seed.ts",
     "check": "next lint && tsc --noEmit",
     "prisma:generate": "prisma generate",
