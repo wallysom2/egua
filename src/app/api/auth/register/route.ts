@@ -41,9 +41,21 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("[REGISTER_ERROR]", error);
+    console.error("[REGISTER_ERROR]", {
+      message: error instanceof Error ? error.message : "Erro desconhecido",
+      stack: error instanceof Error ? error.stack : undefined,
+      details: error
+    });
+
+    const errorMessage = error instanceof Error 
+      ? `Erro ao criar conta: ${error.message}`
+      : "Algo deu errado ao criar sua conta.";
+
     return NextResponse.json(
-      { error: "Algo deu errado ao criar sua conta." },
+      { 
+        error: errorMessage,
+        details: process.env.NODE_ENV === "development" ? error : undefined
+      },
       { status: 500 }
     );
   }
