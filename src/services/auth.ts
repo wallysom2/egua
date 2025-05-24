@@ -31,11 +31,15 @@ export const AuthService = {
       const result = await nextAuthSignIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: "/dashboard",
+        redirect: false,
       });
 
       if (result?.error) {
         throw new AuthError(result.error);
+      }
+
+      if (result?.ok) {
+        window.location.href = "/dashboard";
       }
 
       return result;
@@ -56,11 +60,15 @@ export const AuthService = {
       const result = await nextAuthSignIn("credentials", {
         email: data.email.toLowerCase(),
         password: data.password,
-        callbackUrl: "/dashboard",
+        redirect: false,
       });
 
       if (result?.error) {
         throw new AuthError(result.error);
+      }
+
+      if (result?.ok) {
+        window.location.href = "/dashboard";
       }
 
       return result;
@@ -78,7 +86,10 @@ export const AuthService = {
 
   async loginWithGoogle() {
     try {
-      await nextAuthSignIn("google", { callbackUrl: "/dashboard" });
+      await nextAuthSignIn("google", { 
+        callbackUrl: "/dashboard",
+        redirect: true 
+      });
     } catch (error) {
       throw new AuthError(
         error instanceof Error 
@@ -90,7 +101,11 @@ export const AuthService = {
 
   async logout() {
     try {
-      await nextAuthSignOut({ callbackUrl: "/" });
+      await nextAuthSignOut({ 
+        callbackUrl: "/",
+        redirect: false 
+      });
+      window.location.href = "/";
     } catch (error) {
       throw new AuthError(
         error instanceof Error 
