@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
-<<<<<<< Updated upstream
     "build": "prisma db pull && prisma generate && next build",
     "seed": "node --import tsx prisma/seed.ts",
     "check": "next lint && tsc --noEmit",
@@ -14,15 +13,6 @@
     "prisma:migrate": "prisma migrate deploy",
     "prisma:push": "prisma db push",
     "prisma:studio": "prisma studio",
-=======
-    "build": "next build",
-    "check": "next lint && tsc --noEmit",
-    "prisma:generate": "prisma generate",
-    "prisma:pull": "prisma db pull",
-    "prisma:migrate": "prisma migrate deploy",
-    "prisma:studio": "prisma studio",
-    "prisma:seed": "node --import tsx prisma/seed.ts",
->>>>>>> Stashed changes
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "postinstall": "prisma generate",
