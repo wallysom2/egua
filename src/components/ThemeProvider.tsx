@@ -18,3 +18,5 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   return children;
 } 
+
+export default ThemeProvider;

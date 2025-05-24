@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
+<<<<<<< Updated upstream
     "build": "prisma db pull && prisma generate && next build",
     "seed": "node --import tsx prisma/seed.ts",
     "check": "next lint && tsc --noEmit",
@@ -13,6 +14,15 @@
     "prisma:migrate": "prisma migrate deploy",
     "prisma:push": "prisma db push",
     "prisma:studio": "prisma studio",
+=======
+    "build": "next build",
+    "check": "next lint && tsc --noEmit",
+    "prisma:generate": "prisma generate",
+    "prisma:pull": "prisma db pull",
+    "prisma:migrate": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "node --import tsx prisma/seed.ts",
+>>>>>>> Stashed changes
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "postinstall": "prisma generate",
@@ -40,6 +50,7 @@
     "@trpc/client": "^11.0.0-rc.446",
     "@trpc/react-query": "^11.0.0-rc.446",
     "@trpc/server": "^11.0.0-rc.446",
+    "aws-amplify": "^6.14.4",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -62,6 +73,8 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@aws-amplify/backend": "^1.16.1",
+    "@aws-amplify/backend-cli": "^1.7.2",
     "@tailwindcss/typography": "^0.5.16",
     "@types/bcryptjs": "^2.4.6",
     "@types/eslint": "^8.56.10",
@@ -70,6 +83,9 @@
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@typescript-eslint/parser": "^8.1.0",
+    "aws-cdk-lib": "^2.189.1",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.25.4",
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.0.1",
     "postcss": "^8.4.39",
@@ -78,8 +94,8 @@
     "prisma": "^6.2.1",
     "tailwindcss": "^3.4.3",
     "ts-node": "^10.9.2",
-    "tsx": "^4.19.2",
-    "typescript": "^5.5.3"
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   },
   "ct3aMetadata": {
     "initVersion": "7.38.1"
